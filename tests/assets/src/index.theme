@@ -1,0 +1,10 @@
+[X-GNOME-Metatheme]
+Name=delorean-dark-theme-3.6-G_2.56
+Type=X-GNOME-Metatheme
+Comment=Celebrate the darker side within you
+Encoding=UTF-8
+GtkTheme=delorean-dark-theme-3.6-G
+MetacityTheme=delorean-dark-theme-3.6-G
+IconTheme=gnome
+CursorTheme=Adwaita
+CursorSize=24
