@@ -15,10 +15,12 @@ app {
         MOC_DIR = build/backup
 
 	SOURCES += src/main.cpp \
-    		src/backup.cpp
+                src/backup.cpp \
+                src/backupcli.cpp
 
 	HEADERS += \
-   		 src/backup.h
+                 src/backup.h \
+                 src/backupcli.h
 }
 
 backuptest {
@@ -32,5 +34,5 @@ backuptest {
     		src/backup.cpp \
 
 	HEADERS += \
-    		src/backup.h
+                src/backup.h \
 }

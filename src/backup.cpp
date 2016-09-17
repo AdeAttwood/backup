@@ -20,8 +20,8 @@ backup::backup(QString destDir)
 void backup::backupFiles()
 {
     QListIterator<QPair<QString, QString> > itr (this->backupFileList);
-
     while (itr.hasNext()) {
+
         QPair<QString, QString> current = itr.next();
 
         if(this->isFileNewOrChanged(current.first, current.second)) {
@@ -35,16 +35,14 @@ void backup::backupFiles()
             QFile file(current.first);
 
             // todo add to a verbose option
-             //qDebug() << "[" << bkCount << "] " << current.second;
+            //qDebug() << "[" << this->backUpFileCount << "] " << current.second;
             // fprintf(stderr, QString("\r[%1 of %2]").arg(bkCount).arg(this->backUpFullFileCount).toLatin1().data());
-
 
             file.copy(current.second);
             this->backUpFileCount++;
             this->backUpSize += file.size();
         }
     }
-    //fprintf(stderr, "\r");
 }
 
 void backup::addDir(QString dir)
@@ -56,10 +54,10 @@ void backup::addDir(QString dir)
 
         if(it.fileInfo().isFile()) {
             this->backupFileList.append(qMakePair(it.filePath(), newFile));
-            if(this->isFileNewOrChanged(it.filePath(), newFile)) {
+            //if(this->isFileNewOrChanged(it.filePath(), newFile)) {
                 this->backUpFullFileCount++;
                 this->backUpFullSize += it.fileInfo().size();
-            }
+            //}
         }
         it.next();
     }

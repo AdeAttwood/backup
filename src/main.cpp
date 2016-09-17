@@ -1,7 +1,9 @@
 #include <QCoreApplication>
 #include <QCommandLineParser>
 #include <QDebug>
+
 #include "backup.h"
+#include "backupcli.h"
 
 int main(int argc, char *argv[])
 {
@@ -26,6 +28,10 @@ int main(int argc, char *argv[])
         QCoreApplication::translate("main", "File path to exclude in your backup."),
         QCoreApplication::translate("main", "directory"));
     parser.addOption(excludeDirOption);
+
+    QCommandLineOption outputOption(QStringList() << "o" << "output",
+        QCoreApplication::translate("main", "Output stats when the proces has finished."));
+    parser.addOption(outputOption);
 
     parser.process(app);
 
@@ -61,5 +67,10 @@ int main(int argc, char *argv[])
 
     bk.backupFiles();
 
-    return app.exec();
+    if(parser.isSet(outputOption)) {
+        backupcli cli;
+        cli.output(bk);
+    }
+
+    return 0;
 }
