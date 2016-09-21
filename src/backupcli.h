@@ -7,6 +7,7 @@ public:
     backupcli();
     void output(backup bk);
     QString humanreadable(float number);
+    QString convertTimeFromMis(int time);
 };
 
 #endif // BACKUPCLI_H

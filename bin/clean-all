@@ -1,0 +1,36 @@
+#!/bin/sh
+
+echo "*********** APP ***********";
+
+qmake CONFIG+=app;
+make clean;
+
+echo "rm -f bin/backup"
+rm -f bin/backup
+
+echo "*********** backuptest ***********";
+
+qmake CONFIG+=backuptest;
+make clean;
+
+echo "rm -f bin/backuptest"
+rm -f bin/backuptest
+
+echo "*********** backupclitest ***********";
+
+qmake CONFIG+=backupclitest;
+make clean;
+
+echo "rm -f bin/backupclitest" 
+rm -f bin/backupclitest
+
+echo "*********** clean other ***********";
+
+echo "rm -rf tests/assets/dest"
+rm -rf tests/assets/dest
+
+echo "rm -rf build"
+rm -rf build
+
+echo  "rm -f Makefile"
+rm -f Makefile

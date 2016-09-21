@@ -1,6 +1,7 @@
 #include <QCoreApplication>
 #include <QCommandLineParser>
 #include <QDebug>
+#include <QElapsedTimer>
 
 #include "backup.h"
 #include "backupcli.h"

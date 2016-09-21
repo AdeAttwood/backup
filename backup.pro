@@ -9,30 +9,36 @@ TEMPLATE = app
 DESTDIR = bin
 UI_DIR = .
 
+SOURCES += \
+        src/backup.cpp \
+        src/backupcli.cpp
+
+HEADERS += \
+         src/backup.h \
+         src/backupcli.h
+
 app {
         TARGET = backup
-        OBJECTS_DIR = build/backup
-        MOC_DIR = build/backup
+        OBJECTS_DIR = build
+        MOC_DIR = build
 
-	SOURCES += src/main.cpp \
-                src/backup.cpp \
-                src/backupcli.cpp
-
-	HEADERS += \
-                 src/backup.h \
-                 src/backupcli.h
+        SOURCES += src/main.cpp
 }
 
 backuptest {
         QT += testlib
         TARGET = backuptest
-        OBJECTS_DIR = build/backuptest
-        MOC_DIR = build/backuptest
+        OBJECTS_DIR = build
+        MOC_DIR = build
 
-	SOURCES += \
-                tests/backuptest/backuptest.cpp \
-    		src/backup.cpp \
+        SOURCES += tests/backuptest/backuptest.cpp
+}
 
-	HEADERS += \
-                src/backup.h \
+backupclitest {
+        QT += testlib
+        TARGET = backupclitest
+        OBJECTS_DIR = build
+        MOC_DIR = build
+
+        SOURCES += tests/backupclitest/backupclitest.cpp
 }

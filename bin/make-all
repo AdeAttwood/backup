@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "*********** APP ***********";
+qmake CONFIG+=app;
+make;
+
+echo "*********** backuptest ***********";
+qmake CONFIG+=backuptest;
+make;
+
+echo "*********** backupclitest ***********";
+qmake CONFIG+=backupclitest;
+make;

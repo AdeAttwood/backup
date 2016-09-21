@@ -12,6 +12,9 @@ private slots:
     void testRemoveDir();
     void testBackupSize();
     void testRemoveDirBackupSize();
+    void testMovingFiles();
+    void testMovingFiles1();
+    void cleanupTestCase();
 };
 
 // test cli output
@@ -22,6 +25,34 @@ private slots:
 
 void BackupTest::initTestCase()
 {
+}
+
+void BackupTest::cleanupTestCase()
+{
+    QDir dir("tests/assets/dest");
+    dir.removeRecursively();
+}
+
+void BackupTest::testMovingFiles1()
+{
+    backup bk("tests/assets/dest");
+    bk.addDir("tests/assets/src/cinnamon");
+    bk.addDir("tests/assets/src/gnome-shell");
+    bk.backupFiles();
+
+    QCOMPARE(bk.getBackupFullCount(), 98);
+    QCOMPARE(bk.getBackupCount(), 55);
+
+}
+
+void BackupTest::testMovingFiles()
+{
+    backup bk("tests/assets/dest");
+    bk.addDir("tests/assets/src/cinnamon");
+    bk.backupFiles();
+
+    QCOMPARE(bk.getBackupFullCount(), 43);
+    QCOMPARE(bk.getBackupCount(), 43);
 }
 
 void BackupTest::testRemoveDirBackupSize()
@@ -88,4 +119,4 @@ void BackupTest::testAddDir()
 }
 
 QTEST_MAIN(BackupTest)
-#include "build/backuptest/backuptest.moc"
+#include "build/backuptest.moc"

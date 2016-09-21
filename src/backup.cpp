@@ -5,6 +5,7 @@
 #include <QList>
 #include <QDebug>
 #include <QPair>
+#include <QElapsedTimer>
 
 #include "backup.h"
 
@@ -15,10 +16,16 @@ backup::backup(QString destDir)
     this->backUpSize = 0;
     this->backUpFullSize = 0;
     this->backupDest = destDir;
+    QElapsedTimer timer;
+    this->timer = timer;
+    this->timer.start();
 }
 
 void backup::backupFiles()
 {
+    this->prosessTime = this->timer.elapsed();
+    this->timer.restart();
+
     QListIterator<QPair<QString, QString> > itr (this->backupFileList);
     while (itr.hasNext()) {
 
@@ -43,6 +50,7 @@ void backup::backupFiles()
             this->backUpSize += file.size();
         }
     }
+    this->transferTime = this->timer.elapsed();
 }
 
 void backup::addDir(QString dir)
@@ -50,14 +58,13 @@ void backup::addDir(QString dir)
     QDirIterator it(dir, QDirIterator::Subdirectories);
 
     while (it.hasNext()) {
-        QString newFile = this->backupDest + it.filePath().replace(dir, QString(""));
+        //QString newFile = this->backupDest + it.filePath().replace(dir, QString(""));
+        QString newFile = this->backupDest + it.fileInfo().absoluteFilePath();
 
         if(it.fileInfo().isFile()) {
             this->backupFileList.append(qMakePair(it.filePath(), newFile));
-            //if(this->isFileNewOrChanged(it.filePath(), newFile)) {
-                this->backUpFullFileCount++;
-                this->backUpFullSize += it.fileInfo().size();
-            //}
+            this->backUpFullFileCount++;
+            this->backUpFullSize += it.fileInfo().size();
         }
         it.next();
     }
@@ -113,4 +120,14 @@ QString backup::getBackupDest()
 {
 
     return this->backupDest;
+}
+
+float backup::getBackupPrisessTimer()
+{
+    return this->prosessTime;
+}
+
+float backup::getBackupTrasferTimer()
+{
+    return this->transferTime;
 }
